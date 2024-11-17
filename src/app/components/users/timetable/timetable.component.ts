@@ -1,0 +1,107 @@
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-timetable',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './timetable.component.html',
+  styleUrl: './timetable.component.scss',
+})
+export class TimetableComponent implements OnInit {
+  timetable = [
+    {
+      day: 'MONDAY',
+      timeSlot: 'AFTERNOON',
+      subjectName: 'Science',
+      teacherName: null,
+      classroom: 'A105',
+      week: '3',
+    },
+    {
+      day: 'MONDAY',
+      timeSlot: 'EVENING',
+      subjectName: 'Science2',
+      teacherName: null,
+      classroom: 'A105',
+      week: '3',
+    },
+    {
+      day: 'MONDAY',
+      timeSlot: 'MORNING',
+      subjectName: 'Science3',
+      teacherName: null,
+      classroom: 'A105',
+      week: '3',
+    },
+  ];
+
+  groupedTimetable: any[] = [];
+  weeks: number[] = [1, 2, 3, 4]; // Example week numbers
+  classrooms: string[] = ['A105', 'B202', 'C303']; // Example classroom names
+
+  selectedWeek: number = 1; // Default week
+  selectedClassroom: string = 'A105'; // Default classroom
+
+  filteredTimetable: any[] = []; // Stores fetched timetable data
+
+  constructor(private http: HttpClient, private router: Router) {}
+
+  ngOnInit() {
+    this.fetchTimetable();
+  }
+
+  fetchTimetable(): void {
+    const url = `http://localhost:8080/api/timetables?weekNumber=${this.selectedWeek}&classroom=${this.selectedClassroom}`;
+    this.http.get<any[]>(url).subscribe(
+      (data) => {
+        this.timetable = data;
+        this.groupTimetable();
+      },
+      (error) => {
+        console.error('Error fetching timetable:', error);
+        this.timetable = [];
+      }
+    );
+  }
+  groupTimetable() {
+    const grouped: Record<
+      string,
+      { day: string; morning?: any; afternoon?: any; evening?: any }
+    > = {};
+
+    this.timetable.forEach((entry) => {
+      if (!grouped[entry.day]) {
+        grouped[entry.day] = {
+          day: entry.day,
+          morning: null,
+          afternoon: null,
+          evening: null,
+        };
+      }
+
+      // Narrow down `timeSlot` to specific keys
+      const timeSlot = entry.timeSlot.toLowerCase() as
+        | 'morning'
+        | 'afternoon'
+        | 'evening';
+
+      grouped[entry.day][timeSlot] = entry;
+    });
+
+    this.filteredTimetable = Object.values(grouped);
+  }
+  // Method to navigate to Timetable Create page when a row is clicked
+  navigateToCreateTimetable(): void {
+    // Optionally pass the selected day to the new component (via queryParams, state, or route params)
+    this.router.navigate(['/timetable/create'], {
+      queryParams: {
+        week: this.selectedWeek,
+        classroom: this.selectedClassroom,
+      },
+    });
+  }
+}

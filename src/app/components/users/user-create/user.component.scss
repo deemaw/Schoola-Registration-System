@@ -1,0 +1,21 @@
+.create-user-form {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  padding: 16px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.button-container {
+  text-align: center;
+}
+
+mat-error {
+  font-size: 12px;
+}

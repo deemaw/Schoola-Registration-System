@@ -1,0 +1,38 @@
+/* Style for the navigation links */
+nav {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.nav-link {
+  color: #007bff;
+  text-decoration: none;
+  padding: 8px 12px;
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Style for the navigation buttons */
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.nav-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.nav-button:hover {
+  background-color: #0056b3;
+}

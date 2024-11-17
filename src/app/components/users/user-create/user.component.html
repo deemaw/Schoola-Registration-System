@@ -1,0 +1,71 @@
+<div class="create-user-form mat-elevation-z8">
+  <h2>Create User</h2>
+  <form
+    [formGroup]="createUserForm"
+    (ngSubmit)="onSubmit()"
+    class="mat-form-field"
+  >
+    <!-- User Type -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>User Type</mat-label>
+      <mat-select id="type" formControlName="type">
+        <mat-option value="admin">Admin</mat-option>
+        <mat-option value="teacher">Teacher</mat-option>
+        <mat-option value="student">Student</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- Username -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Username</mat-label>
+      <input matInput id="username" formControlName="username" type="text" />
+      <mat-error *ngIf="createUserForm.get('username')?.invalid">
+        Username is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Password -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        id="password"
+        formControlName="password"
+        type="password"
+      />
+      <mat-error *ngIf="createUserForm.get('password')?.invalid">
+        Password is required.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput id="email" formControlName="email" type="email" />
+      <mat-error *ngIf="createUserForm.get('email')?.invalid">
+        Please enter a valid email.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Roles -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Roles</mat-label>
+      <mat-select id="roles" formControlName="roles" multiple>
+        <mat-option value="ADMIN">Admin</mat-option>
+        <mat-option value="TEACHER">Teacher</mat-option>
+        <mat-option value="STUDENT">Student</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Submit Button -->
+    <div class="button-container">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="createUserForm.invalid"
+      >
+        Create User
+      </button>
+    </div>
+  </form>
+</div>

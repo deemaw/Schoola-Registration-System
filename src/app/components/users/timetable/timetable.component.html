@@ -1,0 +1,59 @@
+<div class="form-container">
+  <div class="form-group">
+    <label for="weekSelect">Select Week: </label>
+    <select id="weekSelect" class="form-control" [(ngModel)]="selectedWeek">
+      <option *ngFor="let week of weeks" [value]="week">{{ week }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="classroomSelect">Select Classroom: </label>
+    <select
+      id="classroomSelect"
+      class="form-control"
+      [(ngModel)]="selectedClassroom"
+    >
+      <option *ngFor="let classroom of classrooms" [value]="classroom">
+        {{ classroom }}
+      </option>
+    </select>
+  </div>
+
+  <button class="btn btn-primary" (click)="fetchTimetable()">
+    Load Timetable
+  </button>
+  <button class="btn btn-primary" (click)="navigateToCreateTimetable()">
+    Create Timetable
+  </button>
+</div>
+
+<div *ngIf="filteredTimetable.length > 0; else noData" class="timetable">
+  <table>
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Morning</th>
+        <th>Afternoon</th>
+        <th>Evening</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let day of filteredTimetable">
+        <tr>
+          <td>{{ day.day }}</td>
+          <td>{{ day.morning?.subjectName || "-" }}</td>
+          <td>{{ day.afternoon?.subjectName || "-" }}</td>
+          <td>{{ day.evening?.subjectName || "-" }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #noData>
+  <div class="no-data-container">
+    <p class="no-data-message">
+      No timetable data available for the selected week and classroom.
+    </p>
+  </div>
+</ng-template>
