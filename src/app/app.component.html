@@ -1,48 +1,8 @@
-<!-- Navigation buttons -->
-<div class="button-container">
-  <button routerLink="/login" class="nav-button">Login</button>
-
-  <!-- Only show "Create User" button if the user is an admin -->
-  <button *ngIf="isAdmin" routerLink="/create-user" class="nav-button">
-    Create User
-  </button>
-
-  <!-- These buttons are accessible for students, teachers, and admins -->
-  <button
-    *ngIf="isStudentOrTeacher || isAdmin"
-    routerLink="/users"
-    class="nav-button"
-  >
-    Go to Users
-  </button>
-  <button
-    *ngIf="isStudentOrTeacher || isAdmin"
-    routerLink="/students"
-    class="nav-button"
-  >
-    Go to Students
-  </button>
-  <button
-    *ngIf="isStudentOrTeacher || isAdmin"
-    routerLink="/teachers"
-    class="nav-button"
-  >
-    Go to Teachers
-  </button>
-  <button
-    *ngIf="isStudentOrTeacher || isAdmin"
-    routerLink="/subjects"
-    class="nav-button"
-  >
-    Go to Subjects
-  </button>
-  <button
-    *ngIf="isStudentOrTeacher || isAdmin"
-    routerLink="/timetable"
-    class="nav-button"
-  >
-    Go to Timetable
-  </button>
-</div>
-
+<button
+  *ngIf="isStudentOrTeacher || isAdmin"
+  routerLink="/dashboard"
+  class="nav-button"
+>
+  Dashboard
+</button>
 <router-outlet></router-outlet>

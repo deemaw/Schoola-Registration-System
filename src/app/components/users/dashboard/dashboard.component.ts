@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
-import { LoginComponent } from './components/auth/login/login.component';
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router'; // Corrected import
 import { CommonModule } from '@angular/common';
-import { AuthService } from './services/auth.service';
-import { log } from 'console';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterOutlet, RouterModule, LoginComponent, CommonModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  imports: [RouterOutlet, RouterModule, CommonModule],
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss',
 })
-export class AppComponent {
-  title = 'school-management-app';
+export class DashboardComponent {
   public isLoggedIn: boolean = false; // Track login state
   isAdmin: boolean = false;
   isStudentOrTeacher: boolean = false;
@@ -21,7 +19,6 @@ export class AppComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.router.navigate(['/login']); // Redirect to userlist route
     this.isAdmin = this.authService.isAdmin();
     this.isStudentOrTeacher = this.authService.isStudentOrTeacher();
     console.log('isAdmin:', this.isAdmin);

@@ -41,6 +41,12 @@ export class UserCreateComponent implements OnInit {
   createUserForm!: FormGroup;
   private fb = inject(FormBuilder); // Inject FormBuilder
   private userService = inject(UserService); // Inject UserService
+  subjects = [
+    { id: 1, name: 'Science' },
+    { id: 2, name: 'Math' },
+    { id: 3, name: 'History' },
+    { id: 4, name: 'English' },
+  ];
 
   ngOnInit(): void {
     this.createUserForm = this.fb.group({
@@ -48,7 +54,9 @@ export class UserCreateComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.email]],
       roles: ['', [Validators.required]],
-      type: ['', [Validators.required]], // 'admin', 'teacher', 'student'
+      type: ['', [Validators.required]], // 'admin', 'teacher', 'student
+      subjectSpecialization: [''],
+      subjects: [[]],
     });
   }
 

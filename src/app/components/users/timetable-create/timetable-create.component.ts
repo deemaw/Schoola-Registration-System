@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
+import { TeacherService } from '../../../services/teacher.service';
 
 @Component({
   selector: 'app-timetable-create',
@@ -24,10 +25,10 @@ import { Observable } from 'rxjs';
 export class TimetableCreateComponent implements OnInit {
   timetableForm!: FormGroup;
   teachers = [
-    { id: 1, name: 'Mr. Smith' },
-    { id: 2, name: 'Ms. Johnson' },
-    { id: 3, name: 'Mr. Lee' },
-    { id: 4, name: 'Ms. Williams' },
+    { id: 1, username: 'Mr. Smith' },
+    { id: 2, username: 'Ms. Johnson' },
+    { id: 3, username: 'Mr. Lee' },
+    { id: 4, username: 'Ms. Williams' },
   ];
   subjects = [
     { id: 1, name: 'Science' },
@@ -35,21 +36,34 @@ export class TimetableCreateComponent implements OnInit {
     { id: 3, name: 'History' },
     { id: 4, name: 'English' },
   ];
+  classRooms = ['A101', 'A102', 'A103', 'A104', 'A105', 'B202', 'C303'];
   weeks = Array.from({ length: 52 }, (_, i) => i + 1); // Array from 1 to 52
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private teacherService: TeacherService
+  ) {}
 
   ngOnInit(): void {
     this.timetableForm = this.fb.group({
       day: ['MONDAY', Validators.required],
       timeSlot: ['MORNING', Validators.required],
-      classRoom: ['A105', Validators.required],
+      classRoom: ['A101', Validators.required],
       teacher: [1, Validators.required], // Default to Mr. Smith
       subject: [1, Validators.required], // Default to Science
       week: [3, [Validators.required, Validators.min(1), Validators.max(52)]],
     });
+
+    this.getTeachersList();
   }
 
+  getTeachersList() {
+    this.teacherService.getUsers().subscribe((data) => {
+      this.teachers = data;
+    });
+    return this.teachers;
+  }
   onSubmit(): void {
     if (this.timetableForm?.valid) {
       const formData = {
@@ -61,7 +75,7 @@ export class TimetableCreateComponent implements OnInit {
           id: this.timetableForm.value.teacher,
           name: this.teachers.find(
             (t) => t.id === this.timetableForm?.value.teacher
-          )?.name,
+          )?.username,
         },
         subject: {
           id: this.timetableForm.value.subject,

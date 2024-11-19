@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table'; // Import MatTableModule
+import { StudentService } from '../../../services/student.service';
 
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
   standalone: true,
-  imports: [CommonModule, MatTableModule], // Import CommonModule to use *ngFor and other directives
+  imports: [CommonModule, MatTableModule],
 })
 export class StudentComponent {
   displayedColumns: string[] = ['name', 'age', 'grade']; // Define column order
@@ -16,4 +17,21 @@ export class StudentComponent {
     { id: 2, name: 'Bob', age: 16, grade: '11th' },
     { id: 3, name: 'Charlie', age: 14, grade: '9th' },
   ];
+
+  constructor(private studentService: StudentService) {}
+
+  ngOnInit(): void {
+    this.getUsers();
+  }
+
+  getUsers(): void {
+    this.studentService.getUsers().subscribe(
+      (data) => {
+        this.students = data;
+      },
+      (error) => {
+        console.error('Error fetching users', error);
+      }
+    );
+  }
 }

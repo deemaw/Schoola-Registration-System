@@ -8,6 +8,7 @@ import { UserCreateComponent } from './components/users/user-create/user.compone
 import { UserListComponent } from './components/users/user-list/user-list.component';
 import { TimetableCreateComponent } from './components/users/timetable-create/timetable-create.component';
 import { LoginComponent } from './components/auth/login/login.component';
+import { DashboardComponent } from './components/users/dashboard/dashboard.component';
 
 export const routes: Routes = [
   { path: 'students', component: StudentComponent },
@@ -18,6 +19,8 @@ export const routes: Routes = [
   { path: 'users', component: UserListComponent },
   { path: 'timetable/create', component: TimetableCreateComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({

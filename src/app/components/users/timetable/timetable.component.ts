@@ -41,7 +41,15 @@ export class TimetableComponent implements OnInit {
 
   groupedTimetable: any[] = [];
   weeks: number[] = [1, 2, 3, 4]; // Example week numbers
-  classrooms: string[] = ['A105', 'B202', 'C303']; // Example classroom names
+  classrooms: string[] = [
+    'A101',
+    'A102',
+    'A103',
+    'A104',
+    'A105',
+    'B202',
+    'C303',
+  ]; // Example classroom names
 
   selectedWeek: number = 1; // Default week
   selectedClassroom: string = 'A105'; // Default classroom

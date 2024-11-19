@@ -45,6 +45,41 @@
         Please enter a valid email.
       </mat-error>
     </mat-form-field>
+    <!-- Teacher-specific Fields -->
+    <div *ngIf="createUserForm.get('type')?.value === 'teacher'">
+      <!-- Name -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput id="name" formControlName="name" type="text" />
+        <mat-error *ngIf="createUserForm.get('name')?.invalid">
+          Name is required.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Subject Specialization -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Subject Specialization</mat-label>
+        <input
+          matInput
+          id="subjectSpecialization"
+          formControlName="subjectSpecialization"
+          type="text"
+        />
+        <mat-error *ngIf="createUserForm.get('subjectSpecialization')?.invalid">
+          Subject Specialization is required.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Subjects -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Subjects</mat-label>
+        <mat-select id="subjects" formControlName="subjects" multiple>
+          <mat-option *ngFor="let subject of subjects" [value]="subject">
+            {{ subject.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
     <!-- Roles -->
     <mat-form-field appearance="outline" class="full-width">

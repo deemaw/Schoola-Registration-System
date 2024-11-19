@@ -1,7 +1,21 @@
-<h2>Teacher List</h2>
-<ul>
-  <li *ngFor="let teacher of teachers">
-    <strong>{{ teacher.name }}</strong> - Age: {{ teacher.subject }}, Grade:
-    {{ teacher.subject }}
-  </li>
-</ul>
+<h2 class="teacher-list-title">Teacher List</h2>
+
+<table mat-table [dataSource]="teachers" class="mat-elevation-z8">
+  <!-- Teacher Name Column -->
+  <ng-container matColumnDef="username">
+    <th mat-header-cell *matHeaderCellDef>Teacher Name</th>
+    <td mat-cell *matCellDef="let teacher">{{ teacher.username }}</td>
+  </ng-container>
+
+  <!-- Subject Specialization Column -->
+  <ng-container matColumnDef="subjectSpecialization">
+    <th mat-header-cell *matHeaderCellDef>Subject Specialization</th>
+    <td mat-cell *matCellDef="let teacher">
+      {{ teacher.subjectSpecialization }}
+    </td>
+  </ng-container>
+
+  <!-- Header and Row Definitions -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
