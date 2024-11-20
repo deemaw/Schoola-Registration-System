@@ -29,7 +29,7 @@ export class AppComponent {
   public isLoggedIn: boolean = false; // Track login state
   isAdmin: boolean = false;
   isStudentOrTeacher: boolean = false;
-  dashboardVisibleRoutes = ['/timetable', '/teacher', '/student', '/users'];
+  dashboardVisibleRoutes = ['/timetable', '/teachers', '/students', '/users'];
   showDashboard: any;
   constructor(private authService: AuthService, private router: Router) {}
 
