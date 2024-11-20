@@ -12,7 +12,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  public isLoggedIn: boolean = false; // Track login state
+  public isLoggedIn: boolean = false;
   isAdmin: boolean = false;
   isStudentOrTeacher: boolean = false;
 

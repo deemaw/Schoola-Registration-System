@@ -1,5 +1,8 @@
 import { DOCUMENT } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -7,11 +10,19 @@ import { Inject, Injectable } from '@angular/core';
 export class AuthService {
   private userRole: string;
 
-  constructor(@Inject(DOCUMENT) private document: Document) {
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private http: HttpClient
+  ) {
     const localStorage = document.defaultView?.localStorage;
 
     // Here, we assume the role is saved in localStorage or retrieved from a JWT token.
     this.userRole = localStorage?.getItem('userRole') || 'guest'; // 'guest' is a fallback if no role is set
+  }
+  private apiUrl = 'http://localhost:8080/api/auth'; // Replace with your API URL
+
+  login(username: string, password: string): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/login`, { username, password });
   }
 
   getRole(): string {

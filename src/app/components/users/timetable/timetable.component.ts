@@ -17,7 +17,7 @@ export class TimetableComponent implements OnInit {
       day: 'MONDAY',
       timeSlot: 'AFTERNOON',
       subjectName: 'Science',
-      teacherName: null,
+      teacher: null,
       classroom: 'A105',
       week: '3',
     },
@@ -25,7 +25,7 @@ export class TimetableComponent implements OnInit {
       day: 'MONDAY',
       timeSlot: 'EVENING',
       subjectName: 'Science2',
-      teacherName: null,
+      teacher: null,
       classroom: 'A105',
       week: '3',
     },
@@ -33,7 +33,7 @@ export class TimetableComponent implements OnInit {
       day: 'MONDAY',
       timeSlot: 'MORNING',
       subjectName: 'Science3',
-      teacherName: null,
+      teacher: null,
       classroom: 'A105',
       week: '3',
     },
@@ -59,6 +59,7 @@ export class TimetableComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
+    this.filteredTimetable = [];
     this.fetchTimetable();
   }
 
@@ -96,8 +97,13 @@ export class TimetableComponent implements OnInit {
         | 'morning'
         | 'afternoon'
         | 'evening';
-
-      grouped[entry.day][timeSlot] = entry;
+      console.log('entry', entry);
+      grouped[entry.day][timeSlot] = {
+        timeSlot: entry.timeSlot,
+        subjectName: entry.subjectName,
+        teacherName: entry.teacher,
+        classroom: entry.classroom,
+      };
     });
 
     this.filteredTimetable = Object.values(grouped);

@@ -10,7 +10,7 @@ export class SubjectService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<[]> {
+  getSubjects(): Observable<[]> {
     return this.http.get<[]>(this.apiUrl);
   }
 }

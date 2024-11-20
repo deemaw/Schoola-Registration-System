@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router'; // Import Router
 import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -15,17 +16,19 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private snackBar: MatSnackBar
   ) {}
 
   username: string = '';
   password: string = '';
 
   handleLogin(): void {
-    console.log('Username:', this.username);
-    console.log('Password:', this.password);
     this.userService.login(this.username, this.password).subscribe({
       next: (response) => {
+        // Redirect to user list route
+        this.router.navigate(['/users']);
+
         response.roles.forEach((role: string) => {
           if (role === 'ADMIN') {
             this.authService.setRole('admin');
@@ -36,15 +39,23 @@ export class LoginComponent {
           }
         });
 
-        // Assuming login response is successful
-        this.router.navigate(['/users']); // Redirect to userlist route
+        // Show success snack bar
+        this.snackBar.open('Login successful!', 'Close', {
+          duration: 3000, // milliseconds
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
       },
       error: (err) => {
         console.error('Login failed:', err);
+
+        // Show error snack bar
+        this.snackBar.open('Login failed. Please try again.', 'Close', {
+          duration: 3000, // milliseconds
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        });
       },
     });
-    // Assuming you have authentication logic here
-    // Add logic to handle successful authentication (e.g., check response from API)
-    // After successful login, redirect to user list page
   }
 }

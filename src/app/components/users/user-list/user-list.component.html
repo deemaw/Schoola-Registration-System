@@ -1,3 +1,7 @@
+<!-- Only show "Create User" button if the user is an admin -->
+<button *ngIf="isAdmin" routerLink="/create-user" class="nav-button">
+  Create User
+</button>
 <h2>User List</h2>
 <table mat-table [dataSource]="users" class="mat-elevation-z8">
   <!-- Username Column -->

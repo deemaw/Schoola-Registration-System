@@ -14,6 +14,8 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { TeacherService } from '../../../services/teacher.service';
+import { CLASSROOMS } from '../../../app.constants';
+import { SubjectService } from '../../../services/subject.service';
 
 @Component({
   selector: 'app-timetable-create',
@@ -36,13 +38,15 @@ export class TimetableCreateComponent implements OnInit {
     { id: 3, name: 'History' },
     { id: 4, name: 'English' },
   ];
-  classRooms = ['A101', 'A102', 'A103', 'A104', 'A105', 'B202', 'C303'];
+  classRooms = CLASSROOMS;
+
   weeks = Array.from({ length: 52 }, (_, i) => i + 1); // Array from 1 to 52
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private teacherService: TeacherService
+    private teacherService: TeacherService,
+    private subjectService: SubjectService
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +60,7 @@ export class TimetableCreateComponent implements OnInit {
     });
 
     this.getTeachersList();
+    this.getSubjectsList();
   }
 
   getTeachersList() {
@@ -63,6 +68,12 @@ export class TimetableCreateComponent implements OnInit {
       this.teachers = data;
     });
     return this.teachers;
+  }
+
+  getSubjectsList() {
+    return this.subjectService.getSubjects().subscribe((data) => {
+      this.subjects = data;
+    });
   }
   onSubmit(): void {
     if (this.timetableForm?.valid) {
@@ -93,14 +104,6 @@ export class TimetableCreateComponent implements OnInit {
   }
 
   submitTimetable(data: any): Observable<any> {
-    const headers = new HttpHeaders({
-      Accept: 'application/json',
-      Authorization: 'Bearer YOUR_TOKEN_HERE',
-      'Content-Type': 'application/json',
-    });
-
-    return this.http.post('http://localhost:8080/api/timetables', data, {
-      headers,
-    });
+    return this.http.post('http://localhost:8080/api/timetables', data, {});
   }
 }

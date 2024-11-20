@@ -41,9 +41,34 @@
       <ng-container *ngFor="let day of filteredTimetable">
         <tr>
           <td>{{ day.day }}</td>
-          <td>{{ day.morning?.subjectName || "-" }}</td>
-          <td>{{ day.afternoon?.subjectName || "-" }}</td>
-          <td>{{ day.evening?.subjectName || "-" }}</td>
+          <td>
+            {{
+              day.morning?.subjectName && day.morning?.teacherName
+                ? day.morning.subjectName +
+                  " - " +
+                  day.morning.teacherName.username
+                : "-"
+            }}
+          </td>
+          <td>
+            {{
+              day.afternoon?.subjectName && day.afternoon?.teacherName?.username
+                ? day.afternoon.subjectName +
+                  " - " +
+                  day.afternoon.teacherName.username
+                : "-"
+            }}
+          </td>
+
+          <td>
+            {{
+              day.evening?.subjectName && day.evening?.teacherName
+                ? day.evening.subjectName +
+                  " - " +
+                  day.evening.teacherName.username
+                : "-"
+            }}
+          </td>
         </tr>
       </ng-container>
     </tbody>

@@ -18,6 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user',
@@ -41,6 +42,7 @@ export class UserCreateComponent implements OnInit {
   createUserForm!: FormGroup;
   private fb = inject(FormBuilder); // Inject FormBuilder
   private userService = inject(UserService); // Inject UserService
+  private snackBar = inject(MatSnackBar); // Inject MatSnackBar
   subjects = [
     { id: 1, name: 'Science' },
     { id: 2, name: 'Math' },
@@ -67,6 +69,11 @@ export class UserCreateComponent implements OnInit {
       this.userService.createUser(user).subscribe(
         (response) => {
           console.log('User created:', response);
+          this.snackBar.open('Users created successfully!', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
         },
         (error) => {
           console.error('Error creating user:', error);

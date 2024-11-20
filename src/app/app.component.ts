@@ -4,11 +4,18 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { log } from 'console';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterModule, LoginComponent, CommonModule],
+  imports: [
+    RouterOutlet,
+    RouterModule,
+    LoginComponent,
+    CommonModule,
+    MatSnackBarModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
