@@ -12,11 +12,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   imports: [CommonModule, MatTableModule],
 })
 export class TeacherComponent implements OnInit {
-  // teachers = [
-  //   { id: 1, name: 'Mr. Smith', subject: 'Mathematics' },
-  //   { id: 2, name: 'Ms. Johnson', subject: 'Science' },
-  // ];
-
   teachers: any[] = [];
   displayedColumns: string[] = ['username', 'subjectSpecialization'];
 

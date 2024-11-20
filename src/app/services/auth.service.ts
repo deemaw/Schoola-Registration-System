@@ -19,7 +19,7 @@ export class AuthService {
     // Here, we assume the role is saved in localStorage or retrieved from a JWT token.
     this.userRole = localStorage?.getItem('userRole') || 'guest'; // 'guest' is a fallback if no role is set
   }
-  private apiUrl = 'http://localhost:8080/api/auth'; // Replace with your API URL
+  private apiUrl = 'http://localhost:8080/auth'; // Replace with your API URL
 
   login(username: string, password: string): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/login`, { username, password });

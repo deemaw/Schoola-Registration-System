@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CLASSROOMS } from '../../../app.constants';
 
 @Component({
   selector: 'app-timetable',
@@ -41,15 +42,7 @@ export class TimetableComponent implements OnInit {
 
   groupedTimetable: any[] = [];
   weeks: number[] = [1, 2, 3, 4]; // Example week numbers
-  classrooms: string[] = [
-    'A101',
-    'A102',
-    'A103',
-    'A104',
-    'A105',
-    'B202',
-    'C303',
-  ]; // Example classroom names
+  classrooms: string[] = CLASSROOMS;
 
   selectedWeek: number = 1; // Default week
   selectedClassroom: string = 'A105'; // Default classroom
@@ -63,6 +56,9 @@ export class TimetableComponent implements OnInit {
     this.fetchTimetable();
   }
 
+  /**
+   * Fetch timetable data from the API based on selected week and classroom.
+   */
   fetchTimetable(): void {
     const url = `http://localhost:8080/api/timetables?weekNumber=${this.selectedWeek}&classroom=${this.selectedClassroom}`;
     this.http.get<any[]>(url).subscribe(
@@ -76,7 +72,11 @@ export class TimetableComponent implements OnInit {
       }
     );
   }
-  groupTimetable() {
+
+  /**
+   * Group timetable data by day and time slots (morning, afternoon, evening).
+   */
+  groupTimetable(): void {
     const grouped: Record<
       string,
       { day: string; morning?: any; afternoon?: any; evening?: any }

@@ -1,8 +1,4 @@
-<button
-  *ngIf="isStudentOrTeacher || isAdmin"
-  routerLink="/dashboard"
-  class="nav-button"
->
+<button *ngIf="showDashboard" routerLink="/dashboard" class="nav-button">
   Dashboard
 </button>
 <router-outlet></router-outlet>

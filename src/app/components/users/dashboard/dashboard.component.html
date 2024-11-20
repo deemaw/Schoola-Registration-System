@@ -19,21 +19,21 @@
       routerLink="/users"
       class="nav-button"
     >
-      Go to Users
+      Users
     </button>
     <button
       *ngIf="isStudentOrTeacher || isAdmin"
       routerLink="/students"
       class="nav-button"
     >
-      Go to Students
+      Students
     </button>
     <button
       *ngIf="isStudentOrTeacher || isAdmin"
       routerLink="/teachers"
       class="nav-button"
     >
-      Go to Teachers
+      Teachers
     </button>
     <!-- <button
       *ngIf="isStudentOrTeacher || isAdmin"
@@ -47,7 +47,14 @@
       routerLink="/timetable"
       class="nav-button"
     >
-      Go to Timetable
+      Timetable
+    </button>
+    <button
+      *ngIf="isStudentOrTeacher || isAdmin"
+      (click)="logout()"
+      class="nav-button"
+    >
+      Logout
     </button>
   </div>
 </div>

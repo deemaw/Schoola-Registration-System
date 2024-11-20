@@ -24,15 +24,15 @@ export class LoginComponent {
   password: string = '';
 
   handleLogin(): void {
-    this.userService.login(this.username, this.password).subscribe({
+    this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
         // Redirect to user list route
-        this.router.navigate(['/users']);
+        this.router.navigate(['/dashboard']);
 
         response.roles.forEach((role: string) => {
           if (role === 'ADMIN') {
             this.authService.setRole('admin');
-          } else if (role === 'teacher') {
+          } else if (role === 'TEACHER') {
             this.authService.setRole('teacher');
           } else {
             this.authService.setRole('student');
@@ -42,7 +42,7 @@ export class LoginComponent {
         // Show success snack bar
         this.snackBar.open('Login successful!', 'Close', {
           duration: 3000, // milliseconds
-          horizontalPosition: 'center',
+          horizontalPosition: 'right',
           verticalPosition: 'top',
         });
       },
@@ -52,7 +52,7 @@ export class LoginComponent {
         // Show error snack bar
         this.snackBar.open('Login failed. Please try again.', 'Close', {
           duration: 3000, // milliseconds
-          horizontalPosition: 'center',
+          horizontalPosition: 'right',
           verticalPosition: 'top',
         });
       },

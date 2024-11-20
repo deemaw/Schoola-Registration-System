@@ -81,6 +81,32 @@
       </mat-form-field>
     </div>
 
+    <!-- Student-specific Fields -->
+    <div *ngIf="createUserForm.get('type')?.value === 'student'">
+      <!-- studentId -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>studentId</mat-label>
+        <input
+          matInput
+          id="studentId"
+          formControlName="studentId"
+          type="text"
+        />
+        <mat-error *ngIf="createUserForm.get('studentId')?.invalid">
+          studentId is required.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Grade -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Grade</mat-label>
+        <input matInput id="grade" formControlName="grade" type="text" />
+        <mat-error *ngIf="createUserForm.get('grade')?.invalid">
+          Grade is required.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
     <!-- Roles -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Roles</mat-label>

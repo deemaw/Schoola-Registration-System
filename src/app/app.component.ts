@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import {
+  NavigationEnd,
+  Router,
+  RouterModule,
+  RouterOutlet,
+} from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth.service';
@@ -24,14 +29,20 @@ export class AppComponent {
   public isLoggedIn: boolean = false; // Track login state
   isAdmin: boolean = false;
   isStudentOrTeacher: boolean = false;
-
+  dashboardVisibleRoutes = ['/timetable', '/teacher', '/student', '/users'];
+  showDashboard: any;
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.router.navigate(['/login']); // Redirect to userlist route
     this.isAdmin = this.authService.isAdmin();
     this.isStudentOrTeacher = this.authService.isStudentOrTeacher();
-    console.log('isAdmin:', this.isAdmin);
+    // Check the route on navigation
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.showDashboard = this.dashboardVisibleRoutes.includes(event.url);
+      }
+    });
   }
 
   onLoginSuccess() {

@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 import { TeacherService } from '../../../services/teacher.service';
 import { CLASSROOMS } from '../../../app.constants';
 import { SubjectService } from '../../../services/subject.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-timetable-create',
@@ -46,7 +47,8 @@ export class TimetableCreateComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private teacherService: TeacherService,
-    private subjectService: SubjectService
+    private subjectService: SubjectService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +71,16 @@ export class TimetableCreateComponent implements OnInit {
     });
     return this.teachers;
   }
+  onTeacherChange(event: Event): void {
+    const selectedTeacherId = (event.target as HTMLSelectElement).value;
+    this.getSubjects(selectedTeacherId);
+  }
 
+  getSubjects(teacherId: string) {
+    this.teacherService.findTeacherById(teacherId).subscribe((data) => {
+      this.subjects = data.subjects;
+    });
+  }
   getSubjectsList() {
     return this.subjectService.getSubjects().subscribe((data) => {
       this.subjects = data;
@@ -97,9 +108,22 @@ export class TimetableCreateComponent implements OnInit {
         week: this.timetableForm.value.week,
       };
 
-      this.submitTimetable(formData).subscribe((response: any) => {
-        console.log('Timetable submitted successfully!', response);
-      });
+      this.submitTimetable(formData).subscribe(
+        (response: any) => {
+          this.snackBar.open('Timetable created successfully!', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
+        },
+        (error: any) => {
+          this.snackBar.open('Timetable creation failed!', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
+        }
+      );
     }
   }
 

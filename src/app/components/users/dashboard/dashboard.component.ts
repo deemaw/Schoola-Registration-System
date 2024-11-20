@@ -1,20 +1,19 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../../services/auth.service';
-import { Router } from '@angular/router'; // Corrected import
+import { Component, OnInit } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterOutlet, RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss',
+  styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
-  public isLoggedIn: boolean = false;
-  isAdmin: boolean = false;
-  isStudentOrTeacher: boolean = false;
+export class DashboardComponent implements OnInit {
+  public isLoggedIn = false;
+  public isAdmin = false;
+  public isStudentOrTeacher = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -24,7 +23,15 @@ export class DashboardComponent {
     console.log('isAdmin:', this.isAdmin);
   }
 
-  onLoginSuccess() {
-    this.isLoggedIn = true; // Set to true when login is successful
+  onLoginSuccess(): void {
+    this.isLoggedIn = true;
+  }
+
+  logout(): void {
+    this.isLoggedIn = false;
+    this.isAdmin = false;
+    this.isStudentOrTeacher = false;
+    localStorage.removeItem('userRole');
+    this.router.navigate(['/login']); // Redirect to login route
   }
 }
