@@ -17,11 +17,12 @@ import { TeacherService } from '../../../services/teacher.service';
 import { CLASSROOMS } from '../../../app.constants';
 import { SubjectService } from '../../../services/subject.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-timetable-create',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './timetable-create.component.html',
   styleUrl: './timetable-create.component.scss',
 })

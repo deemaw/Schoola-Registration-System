@@ -36,7 +36,7 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     this.getUsers();
     this.isAdmin = this.authService.isAdmin();
-    this.isStudentOrTeacher = this.authService.isStudentOrTeacher();
+    // this.isStudentOrTeacher = this.authService.isStudentOrTeacher();
     console.log('isAdmin:', this.isAdmin);
   }
   isAdmin: boolean = false;

@@ -38,7 +38,11 @@ export class AuthService {
     return this.userRole === 'admin';
   }
 
-  isStudentOrTeacher(): boolean {
-    return this.userRole === 'student' || this.userRole === 'teacher';
+  isStudent(): boolean {
+    return this.userRole === 'student';
+  }
+
+  isTeacher(): boolean {
+    return this.userRole === 'teacher';
   }
 }

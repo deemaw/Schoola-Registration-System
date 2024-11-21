@@ -14,47 +14,19 @@
     <!-- <button routerLink="/login" class="nav-button">Login</button> -->
 
     <!-- These buttons are accessible for students, teachers, and admins -->
-    <button
-      *ngIf="isStudentOrTeacher || isAdmin"
-      routerLink="/users"
-      class="nav-button"
-    >
+    <button *ngIf="!isStudent" routerLink="/users" class="nav-button">
       Users
     </button>
-    <button
-      *ngIf="isStudentOrTeacher || isAdmin"
-      routerLink="/students"
-      class="nav-button"
-    >
+    <button *ngIf="!isStudent" routerLink="/students" class="nav-button">
       Students
     </button>
-    <button
-      *ngIf="isStudentOrTeacher || isAdmin"
-      routerLink="/teachers"
-      class="nav-button"
-    >
+    <button *ngIf="!isStudent" routerLink="/teachers" class="nav-button">
       Teachers
     </button>
-    <!-- <button
-      *ngIf="isStudentOrTeacher || isAdmin"
-      routerLink="/subjects"
-      class="nav-button"
-    >
+    <button *ngIf="!isStudent" routerLink="/subjects" class="nav-button">
       Go to Subjects
-    </button> -->
-    <button
-      *ngIf="isStudentOrTeacher || isAdmin"
-      routerLink="/timetable"
-      class="nav-button"
-    >
-      Timetable
     </button>
-    <button
-      *ngIf="isStudentOrTeacher || isAdmin"
-      (click)="logout()"
-      class="nav-button"
-    >
-      Logout
-    </button>
+    <button routerLink="/timetable" class="nav-button">Timetable</button>
+    <button (click)="logout()" class="nav-button">Logout</button>
   </div>
 </div>

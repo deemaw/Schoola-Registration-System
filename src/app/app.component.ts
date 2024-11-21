@@ -28,15 +28,23 @@ export class AppComponent {
   title = 'school-management-app';
   public isLoggedIn: boolean = false; // Track login state
   isAdmin: boolean = false;
-  isStudentOrTeacher: boolean = false;
-  dashboardVisibleRoutes = ['/timetable', '/teachers', '/students', '/users'];
+  isStudent: boolean = false;
+  dashboardVisibleRoutes = [
+    '/timetable',
+    '/teachers',
+    '/students',
+    '/users',
+    '/subjects',
+    '/create-subject',
+    '/create-user',
+  ];
   showDashboard: any;
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.router.navigate(['/login']); // Redirect to userlist route
     this.isAdmin = this.authService.isAdmin();
-    this.isStudentOrTeacher = this.authService.isStudentOrTeacher();
+    this.isStudent = this.authService.isStudent();
     // Check the route on navigation
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

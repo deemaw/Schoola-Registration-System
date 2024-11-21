@@ -13,13 +13,13 @@ import { AuthService } from '../../../services/auth.service';
 export class DashboardComponent implements OnInit {
   public isLoggedIn = false;
   public isAdmin = false;
-  public isStudentOrTeacher = false;
+  public isStudent = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.isAdmin = this.authService.isAdmin();
-    this.isStudentOrTeacher = this.authService.isStudentOrTeacher();
+    this.isStudent = this.authService.isStudent();
     console.log('isAdmin:', this.isAdmin);
   }
 
@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   logout(): void {
     this.isLoggedIn = false;
     this.isAdmin = false;
-    this.isStudentOrTeacher = false;
+    this.isStudent = false;
     localStorage.removeItem('userRole');
     this.router.navigate(['/login']); // Redirect to login route
   }
