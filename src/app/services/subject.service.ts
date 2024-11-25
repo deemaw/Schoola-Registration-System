@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { getAuthHeaders } from '../components/auth/getAuthHeaders';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +12,12 @@ export class SubjectService {
   constructor(private http: HttpClient) {}
 
   getSubjects(): Observable<[]> {
-    return this.http.get<[]>(this.apiUrl);
+    const headers = getAuthHeaders();
+    return this.http.get<[]>(this.apiUrl, { headers });
   }
 
   createSubject(subject: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, subject);
+    const headers = getAuthHeaders();
+    return this.http.post<any>(this.apiUrl, subject, { headers });
   }
 }

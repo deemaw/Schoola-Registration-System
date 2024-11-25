@@ -1,14 +1,6 @@
 <div class="dashboard-container">
   <h1>Welcome to the Dashboard</h1>
-  <!-- 
-  <div class="cards">
-    <div class="card">
-      <h2>Users</h2>
-      <p>View and manage users.</p>
-      <button routerLink="/users">Go to Users</button>
-    </div>
-  </div>
-</div> -->
+
   <!-- Navigation buttons -->
   <div class="button-container">
     <!-- <button routerLink="/login" class="nav-button">Login</button> -->
@@ -24,7 +16,7 @@
       Teachers
     </button>
     <button *ngIf="!isStudent" routerLink="/subjects" class="nav-button">
-      Go to Subjects
+      Subjects
     </button>
     <button routerLink="/timetable" class="nav-button">Timetable</button>
     <button (click)="logout()" class="nav-button">Logout</button>

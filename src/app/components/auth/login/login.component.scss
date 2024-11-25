@@ -63,3 +63,12 @@ button[type="submit"]:hover {
 .extra-links a:hover {
   text-decoration: underline;
 }
+.snackbar-success {
+  background-color: #4caf50; /* Green for success */
+  color: white; /* White text */
+}
+
+.snackbar-error {
+  background-color: #f44336; /* Red for error */
+  color: white; /* White text */
+}

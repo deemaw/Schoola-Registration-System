@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Teacher } from '../models/teacher.model';
+import { getAuthHeaders } from '../components/auth/getAuthHeaders';
 
 @Injectable({
   providedIn: 'root',
@@ -12,10 +13,12 @@ export class TeacherService {
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<[]> {
-    return this.http.get<[]>(this.apiUrl);
+    const headers = getAuthHeaders();
+    return this.http.get<[]>(this.apiUrl, { headers });
   }
 
   findTeacherById(teacherId: string): Observable<Teacher> {
-    return this.http.get<any>(`${this.apiUrl}/${teacherId}`);
+    const headers = getAuthHeaders();
+    return this.http.get<any>(`${this.apiUrl}/${teacherId}`, { headers });
   }
 }

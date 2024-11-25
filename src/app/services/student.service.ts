@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { getAuthHeaders } from '../components/auth/getAuthHeaders';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ export class StudentService {
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<[]> {
-    return this.http.get<[]>(this.apiUrl);
+    const headers = getAuthHeaders();
+    return this.http.get<[]>(this.apiUrl, { headers });
   }
 }

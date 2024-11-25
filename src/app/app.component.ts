@@ -37,6 +37,7 @@ export class AppComponent {
     '/subjects',
     '/create-subject',
     '/create-user',
+    'timetable/create',
   ];
   showDashboard: any;
   constructor(private authService: AuthService, private router: Router) {}

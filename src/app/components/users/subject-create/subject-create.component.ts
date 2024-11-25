@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { SubjectService } from '../../../services/subject.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-subject-subject',
@@ -18,7 +19,11 @@ import { SubjectService } from '../../../services/subject.service';
 export class CreateSubjectComponent implements OnInit {
   subjectForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private subjectService: SubjectService) {
+  constructor(
+    private fb: FormBuilder,
+    private subjectService: SubjectService,
+    private snackBar: MatSnackBar
+  ) {
     this.subjectForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       code: ['', [Validators.required, Validators.maxLength(10)]],
@@ -33,11 +38,19 @@ export class CreateSubjectComponent implements OnInit {
       this.subjectService
         .createSubject(this.subjectForm.value)
         .subscribe((response) => {
-          console.log('Subject created successfully:', response);
+          this.snackBar.open('Subject created successfully!', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
         });
       this.subjectForm.reset();
     } else {
-      alert('Please fill out the form correctly.');
+      this.snackBar.open('Please fill in all required fields.', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+      });
     }
   }
 }

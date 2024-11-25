@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -21,12 +21,23 @@ export class AuthService {
   }
   private apiUrl = 'http://localhost:8080/auth'; // Replace with your API URL
 
-  login(username: string, password: string): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/login`, { username, password });
+  login(email: string, password: string): Observable<User> {
+    return this.http
+      .post<User>(`${this.apiUrl}/login`, { email, password })
+      .pipe(
+        tap((user: any) => {
+          // Assuming the token is part of the response, e.g., user.token
+          localStorage.setItem('token', user.token);
+        })
+      );
   }
 
   getRole(): string {
     return this.userRole;
+  }
+
+  setToken(token: any): void {
+    localStorage.setItem('token', token);
   }
 
   setRole(role: string): void {

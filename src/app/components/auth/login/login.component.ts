@@ -28,6 +28,7 @@ export class LoginComponent {
       next: (response) => {
         // Redirect to user list route
         this.router.navigate(['/dashboard']);
+        this.authService.setToken(response['token']);
 
         response.roles.forEach((role: string) => {
           if (role === 'ADMIN') {
@@ -44,6 +45,7 @@ export class LoginComponent {
           duration: 3000, // milliseconds
           horizontalPosition: 'right',
           verticalPosition: 'top',
+          panelClass: ['snackbar-success'],
         });
       },
       error: (err) => {
@@ -54,6 +56,7 @@ export class LoginComponent {
           duration: 3000, // milliseconds
           horizontalPosition: 'right',
           verticalPosition: 'top',
+          panelClass: ['snackbar-error'],
         });
       },
     });

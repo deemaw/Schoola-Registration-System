@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CLASSROOMS } from '../../../app.constants';
+import { getAuthHeaders } from '../../auth/getAuthHeaders';
 
 @Component({
   selector: 'app-timetable',
@@ -60,8 +61,9 @@ export class TimetableComponent implements OnInit {
    * Fetch timetable data from the API based on selected week and classroom.
    */
   fetchTimetable(): void {
+    let headers = getAuthHeaders();
     const url = `http://localhost:8080/api/timetables?weekNumber=${this.selectedWeek}&classroom=${this.selectedClassroom}`;
-    this.http.get<any[]>(url).subscribe(
+    this.http.get<any[]>(url, { headers }).subscribe(
       (data) => {
         this.timetable = data;
         this.groupTimetable();

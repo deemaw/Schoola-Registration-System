@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SubjectService } from '../../../services/subject.service';
 
 @Component({
   selector: 'app-user',
@@ -41,6 +42,7 @@ export class UserCreateComponent implements OnInit {
   private fb = inject(FormBuilder); // Inject FormBuilder
   private userService = inject(UserService); // Inject UserService
   private snackBar = inject(MatSnackBar); // Inject MatSnackBar
+  private subjectService = inject(SubjectService);
   subjects = [
     { id: 1, name: 'Science' },
     { id: 2, name: 'Math' },
@@ -58,8 +60,13 @@ export class UserCreateComponent implements OnInit {
       subjectSpecialization: [''],
       subjects: [[]],
     });
+    this.getSubjects();
   }
-
+  getSubjects(): void {
+    this.subjectService.getSubjects().subscribe((data) => {
+      this.subjects = data;
+    });
+  }
   onSubmit(): void {
     if (this.createUserForm.valid) {
       const user: User = this.createUserForm.value;

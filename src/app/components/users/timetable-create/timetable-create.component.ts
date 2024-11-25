@@ -28,12 +28,7 @@ import { RouterModule } from '@angular/router';
 })
 export class TimetableCreateComponent implements OnInit {
   timetableForm!: FormGroup;
-  teachers = [
-    { id: 1, username: 'Mr. Smith' },
-    { id: 2, username: 'Ms. Johnson' },
-    { id: 3, username: 'Mr. Lee' },
-    { id: 4, username: 'Ms. Williams' },
-  ];
+
   subjects = [
     { id: 1, name: 'Science' },
     { id: 2, name: 'Math' },
@@ -43,6 +38,7 @@ export class TimetableCreateComponent implements OnInit {
   classRooms = CLASSROOMS;
 
   weeks = Array.from({ length: 52 }, (_, i) => i + 1); // Array from 1 to 52
+  teachers: any;
 
   constructor(
     private fb: FormBuilder,
@@ -61,7 +57,6 @@ export class TimetableCreateComponent implements OnInit {
       subject: [1, Validators.required], // Default to Science
       week: [3, [Validators.required, Validators.min(1), Validators.max(52)]],
     });
-
     this.getTeachersList();
     this.getSubjectsList();
   }
@@ -72,6 +67,7 @@ export class TimetableCreateComponent implements OnInit {
     });
     return this.teachers;
   }
+
   onTeacherChange(event: Event): void {
     const selectedTeacherId = (event.target as HTMLSelectElement).value;
     this.getSubjects(selectedTeacherId);
@@ -96,9 +92,9 @@ export class TimetableCreateComponent implements OnInit {
         teacher: {
           type: 'teacher',
           id: this.timetableForm.value.teacher,
-          name: this.teachers.find(
-            (t) => t.id === this.timetableForm?.value.teacher
-          )?.username,
+          username: this.teachers.find(
+            (t: { id: any }) => t.id === this.timetableForm?.value.teacher
+          ),
         },
         subject: {
           id: this.timetableForm.value.subject,
@@ -127,7 +123,6 @@ export class TimetableCreateComponent implements OnInit {
       );
     }
   }
-
   submitTimetable(data: any): Observable<any> {
     return this.http.post('http://localhost:8080/api/timetables', data, {});
   }

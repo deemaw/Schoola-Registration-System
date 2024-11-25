@@ -1,28 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
+import { getAuthHeaders } from '../components/auth/getAuthHeaders';
 
 @Injectable({
-  providedIn: 'root', // No need to import in a module
+  providedIn: 'root',
 })
 export class UserService {
   private apiUrl = 'http://localhost:8080/api/users'; // Replace with your API URL
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/login`, { username, password });
-  }
   createUser(user: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl, user);
+    const headers = getAuthHeaders();
+    return this.http.post<User>(this.apiUrl, user, { headers });
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<[]>(this.apiUrl);
+    const headers = getAuthHeaders();
+    return this.http.get<User[]>(this.apiUrl, { headers });
   }
 
   getUserById(userId: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/${userId}`);
+    const headers = getAuthHeaders();
+    return this.http.get<User>(`${this.apiUrl}/${userId}`, { headers });
   }
 }

@@ -7,6 +7,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-list',
@@ -19,6 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     RouterModule,
     CommonModule,
   ],
+  providers: [],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
 })

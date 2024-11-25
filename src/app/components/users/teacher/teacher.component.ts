@@ -32,6 +32,7 @@ export class TeacherComponent implements OnInit {
           duration: 3000, // milliseconds
           horizontalPosition: 'right',
           verticalPosition: 'top',
+          panelClass: ['snackbar-success'],
         });
       },
       (error) => {
@@ -43,6 +44,7 @@ export class TeacherComponent implements OnInit {
             duration: 3000, // milliseconds
             horizontalPosition: 'right',
             verticalPosition: 'top',
+            panelClass: ['snackbar-error'],
           }
         );
       }
